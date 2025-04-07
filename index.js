@@ -14,12 +14,14 @@ app.get('/convert', (req, res) => {
 
   const command = `yt-dlp -x --audio-format mp3 -o ${fileName} ${url}`;
 
-  exec(command, (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send('Erro na conversão');
-    }
+ exec(command, (err, stdout, stderr) => {
+  console.log("STDOUT:", stdout);
+  console.log("STDERR:", stderr);
 
+  if (err) {
+    console.error("Erro real:", err);
+    return res.status(500).send('Erro na conversão');
+  }
     const filePath = path.join(__dirname, fileName);
     res.download(filePath, () => {
       fs.unlinkSync(filePath); // limpa depois do envio
