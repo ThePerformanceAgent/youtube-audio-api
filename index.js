@@ -12,7 +12,7 @@ app.get('/convert', (req, res) => {
   const url = `https://www.youtube.com/watch?v=${videoId}`;
   const fileName = `audio_${videoId}.mp3`;
 
-  const command = `yt-dlp -x --audio-format mp3 -o ${fileName} ${url} --add-header "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)" --add-header "Accept-Language: en-US,en;q=0.5"`;
+  const command = `yt-dlp -x --audio-format mp3 -o ${fileName} ${url} --force-generic-extractor --add-header "User-Agent: Mozilla/5.0"`;
 
  exec(command, (err, stdout, stderr) => {
   console.log("STDOUT:", stdout);
